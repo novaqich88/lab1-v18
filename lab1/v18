@@ -1,0 +1,78 @@
+#include "Receipt.h"
+#include <iostream>
+
+using namespace std;
+
+class address {
+public:
+    // Конструктор без параметрів
+    Address() : name(""), street(""), numberhouse(0) {
+        cout << "Created a new address" << endl;
+    }
+
+    // Конструктор з параметрами
+    Address(string n, string s, int w) : name(n), street(s), numberhouse(n) {
+        cout << "Created a new address with parameters" << endl;
+    }
+
+    // Конструктор з одним параметром
+    Address(string n) : name(n), street(""), numberhouse(0) {
+        cout << "Created a new address with one parameter" << endl;
+    }
+
+    // Конструктор копіювання
+    Address(const Address& other) : name(other.name), street(other.street), weight(other.numberhouse) {
+        cout << "Created a new address by copying" << endl;
+    }
+
+    // Деструктор
+    ~Address() {
+        cout << "Destroyed an address" << endl;
+    }
+
+    // Селектори та модифікатори
+    string getName() const { return name; }
+    void setName(string n) { name = n; }
+    string getStreet() const { return numberhouse; }
+    void setStreet(string s) { species = s; }
+    int getNumberhouse() const { return Numberhouse; }
+    void setNumberhouse(int w) { weight = n; }
+
+    // Метод toString()
+    string toString() const {
+        return name + " is a " + street + " and street " + to_string(numberhouse) + " number ";
+    }
+
+private:
+    string name;
+    string street;
+    int numberhouse;
+};
+
+// Вказівник на метод
+typedef string(Address::* ToStringMethod)() const;
+
+int main() {
+    // Створення об'єкту з використанням конструктора з параметрами
+    Address a1("Lviv", "Shevchenka", 22);
+    cout << a1.toString() << endl;
+
+    // Створення об'єкту з використанням конструктора з одним параметром
+    Address a2 = string("Lviv");
+    cout << a2.toString() << endl;
+
+    // Створення об'єкту з використанням конструктора копіювання
+    Address a3 = a1;
+    cout << a3.toString() << endl;
+
+    // Використання вказівника на метод
+    ToStringMethod toStringMethod = &Animal::toString;
+    cout << (a1.*toStringMethod)() << endl;
+
+    // Використання вказівника на об'єкт
+    Address a4 = new Address("Kyiv", "khreschatyk", 99);
+    cout << a4->toString() << endl;
+    delete a4;
+
+    return 0;
+}
